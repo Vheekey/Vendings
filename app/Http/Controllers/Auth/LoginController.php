@@ -16,6 +16,10 @@ class LoginController extends Controller
             return $this->jsonResponse(HTTP_UNAUTHORIZED, 'Invalid Credentials');
         }
 
+        if(Auth::check()){
+            return $this->jsonResponse(HTTP_UNAUTHORIZED, 'There is already an active session using your account');
+        }
+
         $user = User::where('username', $request->username)->sole();
         $user->token = $user->createToken($user->username)->plainTextToken;
 
