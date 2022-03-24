@@ -13,13 +13,13 @@ class DepositRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
 
     protected function prepareForValidation()
     {
-        abort_if(! $this->amount%5 == 0, 422, 'Deposits should be in multiples of 5!');
+        abort_if(! ($this->amount % 5 == 0), 422, 'Deposits should be in multiples of 5!');
     }
 
     /**
@@ -30,7 +30,7 @@ class DepositRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'amount' => 'required|numeric|min:5|max:100'
         ];
     }
 }

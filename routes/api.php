@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,9 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::middleware('can:isBuyer')->group(function(){
+        Route::prefix('buyers')->controller(BuyerController::class)->group(function(){
+            Route::post('/deposit', 'deposit')->name('buyers.deposit');
+        });
     });
 
     Route::middleware('can:isSeller')->group(function(){

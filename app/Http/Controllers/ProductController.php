@@ -25,16 +25,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created peoduct in storage.
      *
      * @param  \Illuminate\Http\CreateRequest  $request
@@ -73,8 +63,6 @@ class ProductController extends Controller
      */
     public function update(UpdateRequest $request, Product $product)
     {
-        $this->authorize('process', $product);
-
         if($request->filled('price')) $product->cost = $request->price;
         if($request->filled('name')) $product->productName = $request->name;
         if($request->filled('quantity')) $product->amountAvailable = $request->quantity;
