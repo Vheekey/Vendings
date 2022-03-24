@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DepositRequest extends FormRequest
+class BuyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +16,6 @@ class DepositRequest extends FormRequest
         return true;
     }
 
-
-    protected function prepareForValidation()
-    {
-        abort_if(! ($this->amount % 5 == 0), 422, 'Deposits should be in multiples of 5!');
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,7 +24,8 @@ class DepositRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|numeric|min:5|max:100|in:5,10,20,50,100'
+            'productId' => 'required|int|exists:products,id',
+            'quantity' => 'required|numeric|min:1',
         ];
     }
 }

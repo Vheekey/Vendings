@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::middleware('can:isBuyer')->group(function(){
         Route::prefix('buyers')->controller(BuyerController::class)->group(function(){
             Route::post('/deposit', 'deposit')->name('buyers.deposit');
+            Route::post('/buy/{product}', 'buy')->name('buyers.buy');
+            Route::post('/reset', 'resetDeposit')->name('deposit.reset');
         });
     });
 
