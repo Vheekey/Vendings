@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->float('deposit');
             $table->string('role');
+            $table->text('userable_type');
+            $table->unsignedBigInteger('userable_id');
             $table->rememberToken();
             $table->timestamps();
         });

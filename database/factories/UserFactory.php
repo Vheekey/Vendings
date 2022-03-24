@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Buyer;
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -18,12 +20,22 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [
+        $role = [
+            Buyer::class => User::BUYER,
+            Seller::class => User::SELLER,
+        ];
+
+        $user = [
             'username' => $this->faker->unique()->word(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'deposit' => $this->faker->randomNumber(3),
-            'role' => $this->faker->randomElement([User::BUYER, User::SELLER]),
+            'userable_type' => $this->faker->randomElement([Buyer::class, Seller::class]),
         ];
+
+        $user['userable_id'] = $user['userable_type']::factory()->create()->id;
+        $user['role'] = $role[$user['userable_type']];
+
+        return $user;
     }
 
     /**

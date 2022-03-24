@@ -39,4 +39,9 @@ class User extends Authenticatable
     //roles
     const SELLER = 'seller';
     const BUYER = 'buyer';
+
+    public function userable()
+    {
+        return $this->morphTo();
+    }
 }
