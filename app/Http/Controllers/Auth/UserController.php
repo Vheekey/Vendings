@@ -21,7 +21,7 @@ class UserController extends Controller
 
         $users = UserResource::collection($users);
 
-        return $this->wrapJsonResponse($users->response(), 'Users Retrieved Successful');
+        return $this->wrapJsonResponse($users->response(), 'Users Retrieved');
     }
 
     /**

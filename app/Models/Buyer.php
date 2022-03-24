@@ -13,6 +13,6 @@ class Buyer extends Model
 
     public function user()
     {
-        return $this->morphMany(User::class, 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
 }

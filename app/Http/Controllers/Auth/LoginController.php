@@ -17,7 +17,7 @@ class LoginController extends Controller
             return $this->jsonResponse(HTTP_UNAUTHORIZED, 'Invalid Credentials');
         }
 
-        if($request->user()->tokens()){
+        if(auth('sanctum')->check()){
             return $this->jsonResponse(HTTP_UNAUTHORIZED, 'There is already an active session using your account');
         }
 

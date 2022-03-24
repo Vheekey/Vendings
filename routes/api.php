@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,12 +38,18 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::middleware('can:isBuyer')->group(function(){
-
     });
 
     Route::middleware('can:isSeller')->group(function(){
-
+        Route::prefix('products')->controller(ProductController::class)->group(function(){
+            Route::post('/', 'store')->name('products.create');
+            Route::put('/{product}', 'update')->name('products.update');
+            Route::delete('/{product}', 'destroy')->name('products.delete');
+        });
     });
+
+    Route::get('products', [ProductController::class, 'index'])->name('products.all');
+    Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
     Route::get('logout/all', [LoginController::class, 'logout'])->name('logout');
 });
