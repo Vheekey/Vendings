@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('username');
             $table->string('password');
-            $table->float('deposit');
+            $table->float('deposit')->default(0.00);
             $table->string('role');
             $table->text('userable_type');
             $table->unsignedBigInteger('userable_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
