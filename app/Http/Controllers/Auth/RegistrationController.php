@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
+    /**
+     * User registration
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(RegisterRequest $request)
     {
         $user = new User([

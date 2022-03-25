@@ -18,7 +18,7 @@ class CreateRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        abort_if(! ($this->price % 5 == 0), 422, 'Prices should be in multiples of 5!');
+        abort_unless($this->price % 5 == 0, 422, 'Prices should be in multiples of 5!');
     }
 
     /**

@@ -28,7 +28,7 @@ class UserFactory extends Factory
         $user = [
             'username' => $this->faker->unique()->word(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'deposit' => $this->faker->randomNumber(3),
+            'deposit' => $this->faker->randomElement([5, 10, 20, 50, 100]),
             'userable_type' => $this->faker->randomElement([Buyer::class, Seller::class]),
         ];
 

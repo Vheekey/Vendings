@@ -67,7 +67,7 @@ class UserController extends Controller
         return $this->jsonResponse(HTTP_SUCCESS, 'User Deleted');
     }
 
-    protected function swapRole(Request $request, User $user)
+    private function swapRole(Request $request, User $user)
     {
         $user->role = strtolower($request->role);
         $user->userable()->product()->delete();

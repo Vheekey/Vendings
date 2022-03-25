@@ -53,4 +53,14 @@ class User extends Authenticatable
             User::SELLER => Seller::class,
         ][strtolower($role)];
     }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class, 'userable_id');
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(Buyer::class, 'userable_id');
+    }
 }

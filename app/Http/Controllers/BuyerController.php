@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class BuyerController extends Controller
 {
+    /**
+     * Deposit amount
+     *
+     * @param DepositRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function deposit(DepositRequest $request)
     {
         $user = auth()->user();
@@ -18,6 +24,13 @@ class BuyerController extends Controller
         return $this->jsonResponse(HTTP_SUCCESS, 'Deposit Successful');
     }
 
+    /**
+     * Make a buy request
+     *
+     * @param BuyRequest $request
+     * @param Product $product
+     * @return \Illuminate\Http\Response
+     */
     public function buy(BuyRequest $request, Product $product)
     {
         $total = $request->quantity * $product->cost;
@@ -30,6 +43,7 @@ class BuyerController extends Controller
         $change = $balance - $total;
 
         auth()->user()->update(['deposit' => $change]);
+        $product->decrement('amountAvailable', $request->quantity);
 
         return $this->jsonResponse(HTTP_SUCCESS, 'Purchase Successful', collect([
             'total_spent' => $total,
@@ -37,6 +51,11 @@ class BuyerController extends Controller
         ]));
     }
 
+    /**
+     * Reset deposit amount to zero
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function resetDeposit()
     {
         auth()->user()->update(['deposit' => 0]);

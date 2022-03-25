@@ -16,6 +16,11 @@ class BuyRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        abort_if($this->product->amountAvailable == 0, 400, 'Out of Stock!');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,7 +30,7 @@ class BuyRequest extends FormRequest
     {
         return [
             'productId' => 'required|int|exists:products,id',
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => 'required|numeric|min:1|max:'.$this->product->amountAvailable,
         ];
     }
 }
