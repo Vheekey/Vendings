@@ -13,3 +13,6 @@
 
 ## To run tests
 ### Run php artisan test
+
+# Collection can be found here
+<a href="https://www.getpostman.com/collections/7a1b5ec6a6ecb34c76a0"> Postman Collection </a>
