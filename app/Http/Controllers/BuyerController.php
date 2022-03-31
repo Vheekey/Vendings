@@ -65,33 +65,25 @@ class BuyerController extends Controller
 
     private function roundToAmount(int $amount) {
         $change = [];
-        $possible_values = [5, 10, 20, 50, 100];
 
-        if($amount <= min($possible_values) || $amount == max($possible_values)){
-            $change[] = $amount ?? 0;
-        }
+        $possible_values = [100, 50, 20, 10, 5];
 
-        $remainder = $amount;
+        foreach($possible_values as $value)
+        {
+            if($amount >= $value){
+                $count = $amount / $value;
+                $balance = floor($amount % $value);
 
-        if($amount > max($possible_values)){
-            while($remainder > max($possible_values)){
-                $change[] = max($possible_values);
-                $remainder = $remainder - max($possible_values);
-            }
-
-            if(! in_array($remainder, $possible_values)){
-                while($remainder > min($possible_values)){
-                    $change[] = min($possible_values);
-                    $remainder = $remainder - min($possible_values);
+                for($i=1; $i<=$count; $i++)
+                {
+                    $change[] = $value;
                 }
-            }else{
-                $change[] = $remainder;
-            }
 
-        }else{
-            while($remainder > min($possible_values)){
-                $change[] = min($possible_values);
-                $remainder = $remainder - min($possible_values);
+                $amount = $balance;
+
+                if($amount > 5){
+                    $this->roundToAmount($amount);
+                }
             }
         }
 
