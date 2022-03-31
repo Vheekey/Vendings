@@ -1,4 +1,6 @@
 
+# Vendings
+### A simulation of a simple vending system
 
 ## To begin:
 
